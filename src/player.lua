@@ -9,7 +9,7 @@ local canShoot = true
 local canShootTimerMax = 0.2
 local canShootTimer = canShootTimerMax
 
-function p.load ()
+function p.loadImage ()
   player.img = love.graphics.newImage('assets/plane.png')
 end
 

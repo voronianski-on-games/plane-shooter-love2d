@@ -3,7 +3,7 @@ local bulletImg = nil
 local bulletSpeed = 200
 local bulletList = {}
 
-function bullets.load ()
+function bullets.loadImage ()
   bulletImg = love.graphics.newImage('assets/bullet.png')
 end
 

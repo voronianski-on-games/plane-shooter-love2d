@@ -2,10 +2,12 @@ debug = true
 
 local player = require('./src/player')
 local bullets = require('./src/bullets')
+local enemies = require('./src/enemies')
 
 function love.load()
-  player.load()
-  bullets.load()
+  player.loadImage()
+  bullets.loadImage()
+  enemies.loadImage()
 end
 
 function love.update(dt)
@@ -14,7 +16,9 @@ function love.update(dt)
   end
 
   player.updateShooter(dt)
+  enemies.createWithTimer(dt)
   bullets.update(dt)
+  enemies.update(dt)
 
   if love.keyboard.isDown('x') and player.canShoot() then
     bullets.create(player.getInstance())
@@ -28,9 +32,10 @@ function love.update(dt)
   end
 end
 
-function love.draw(dt)
+function love.draw()
   bullets.draw()
   player.draw()
+  enemies.draw()
 
   if debug then
     local fps = tostring(love.timer.getFPS())
