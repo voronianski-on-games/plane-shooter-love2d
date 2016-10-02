@@ -1,7 +1,7 @@
 local bullets = {}
 local bulletImg = nil
 local bulletSpeed = 200
-local bulletList = {}
+local bulletsList = {}
 
 function bullets.loadImage ()
   bulletImg = love.graphics.newImage('assets/bullet.png')
@@ -15,23 +15,37 @@ function bullets.create (player)
     img = bulletImg
   }
 
-  table.insert(bulletList, newBullet)
+  table.insert(bulletsList, newBullet)
+end
+
+function bullets.reset ()
+  bulletsList = {}
+end
+
+function bullets.each (cb)
+  for i, bullet in ipairs(bulletsList) do
+    cb(bullet, i)
+  end
 end
 
 function bullets.update (dt)
-  for i, bullet in ipairs(bulletList) do
+  bullets.each(function (bullet, i)
     bullet.y = bullet.y - (bullet.speed * dt)
 
     if bullet.y < 0 then
-      table.remove(bulletList, i)
+      bullets.remove(i)
     end
-  end
+  end)
+end
+
+function bullets.remove (index)
+  table.remove(bulletsList, index)
 end
 
 function bullets.draw ()
-  for i, bullet in ipairs(bulletList) do
+  bullets.each(function (bullet)
     love.graphics.draw(bullet.img, bullet.x, bullet.y)
-  end
+  end)
 end
 
 return bullets
