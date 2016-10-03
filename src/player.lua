@@ -1,10 +1,10 @@
-local p = {}
+local player = {}
 
 local canShootTimerMax = 0.2
 local canShootTimer = canShootTimerMax
 local initialX = 200
 local initialY = 710
-local player = {
+local playerData = {
   x = initialX,
   y = initialY,
   speed = 150,
@@ -14,62 +14,62 @@ local player = {
   canShoot = true
 }
 
-function p.loadImage ()
-  player.img = love.graphics.newImage('assets/plane.png')
+function player.loadImage ()
+  playerData.img = love.graphics.newImage('assets/plane.png')
 end
 
-function p.getInstance ()
-  return player
+function player.data ()
+  return playerData
 end
 
-function p.reset ()
-  player.x = initialX
-  player.y = initialY
-  player.score = 0
-  player.isAlive = true
+function player.reset ()
+  playerData.x = initialX
+  playerData.y = initialY
+  playerData.score = 0
+  playerData.isAlive = true
 
   canShootTimer = canShootTimerMax
 end
 
-function p.updateShooter (dt)
+function player.updateShooter (dt)
   canShootTimer = canShootTimer - dt
   if canShootTimer < 0 then
-    player.canShoot = true
+    playerData.canShoot = true
   end
 end
 
-function p.resetShooter ()
-  player.canShoot = false
+function player.resetShooter ()
+  playerData.canShoot = false
   canShootTimer = canShootTimerMax
 end
 
-function p.moveLeft (dt)
-  local isNotBorder = player.x > 0
+function player.moveLeft (dt)
+  local isNotBorder = playerData.x > 0
 
   if isNotBorder then
-    player.x = player.x - (player.speed * dt)
+    playerData.x = playerData.x - (playerData.speed * dt)
   end
 end
 
-function p.moveRight (dt)
-  local isNotBorder = player.x < (love.graphics.getWidth() - player.img:getWidth())
+function player.moveRight (dt)
+  local isNotBorder = playerData.x < (love.graphics.getWidth() - playerData.img:getWidth())
 
   if isNotBorder then
-    player.x = player.x + (player.speed * dt)
+    playerData.x = playerData.x + (playerData.speed * dt)
   end
 end
 
-function p.score ()
-  player.score = player.score + 1
+function player.score ()
+  playerData.score = playerData.score + 1
 end
 
-function p.remove ()
-  player.isAlive = false
+function player.remove ()
+  playerData.isAlive = false
 end
 
-function p.draw ()
-  if player.isAlive then
-    love.graphics.draw(player.img, player.x, player.y)
+function player.draw ()
+  if playerData.isAlive then
+    love.graphics.draw(playerData.img, playerData.x, playerData.y)
   else
     love.graphics.print(
       'Press \'R\' to restart',
@@ -79,4 +79,4 @@ function p.draw ()
   end
 end
 
-return p
+return player

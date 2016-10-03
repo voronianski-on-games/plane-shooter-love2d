@@ -3,19 +3,26 @@ debug = true
 local player = require('./src/player')
 local bullets = require('./src/bullets')
 local enemies = require('./src/enemies')
+
 local gunSound = nil
+local bgImage = nil
+local bgQuad = nil
 
 function love.load()
+  love.graphics.setBackgroundColor(64, 166, 216)
+  bgImage = love.graphics.newImage('assets/sea-tile.png')
+  bgImage:setWrap('repeat', 'repeat')
+  bgQuad = love.graphics.newQuad(0, 0, 480, 800, bgImage:getWidth(), bgImage:getHeight())
+
   player.loadImage()
   bullets.loadImage()
   enemies.loadImage()
 
-  love.graphics.setBackgroundColor(0, 68, 104)
   gunSound = love.audio.newSource('assets/gun-sound.wav', 'static')
 end
 
 function love.update(dt)
-  local playerData = player.getInstance()
+  local playerData = player.data()
 
   if love.keyboard.isDown('lcmd') and love.keyboard.isDown('q') then
     love.event.push('quit')
@@ -62,9 +69,13 @@ function love.update(dt)
 end
 
 function love.draw()
+  love.graphics.draw(bgImage, bgQuad, 0, 0)
+
   bullets.draw()
   enemies.draw()
   player.draw()
+
+  love.graphics.print('Score: ' .. player.data().score, 400, 10)
 
   if debug then
     local fps = tostring(love.timer.getFPS())
