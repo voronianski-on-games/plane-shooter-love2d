@@ -10,6 +10,7 @@ function love.load()
   bullets.loadImage()
   enemies.loadImage()
 
+  love.graphics.setBackgroundColor(0, 68, 104)
   gunSound = love.audio.newSource('assets/gun-sound.wav', 'static')
 end
 

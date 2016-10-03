@@ -4,7 +4,7 @@ local bulletSpeed = 200
 local bulletsList = {}
 
 function bullets.loadImage ()
-  bulletImg = love.graphics.newImage('assets/bullet.png')
+  bulletImg = love.graphics.newImage('assets/bullet2.png')
 end
 
 function bullets.create (player)
