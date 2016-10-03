@@ -1,5 +1,5 @@
-# Basic plane shooter example in LÖVE
+# Plane shooter with LÖVE
 
 ---
 
-*MIT Licensed*
+**MIT Licensed**
