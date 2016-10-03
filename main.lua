@@ -3,11 +3,14 @@ debug = true
 local player = require('./src/player')
 local bullets = require('./src/bullets')
 local enemies = require('./src/enemies')
+local gunSound = nil
 
 function love.load()
   player.loadImage()
   bullets.loadImage()
   enemies.loadImage()
+
+  gunSound = love.audio.newSource('assets/gun-sound.wav', 'static')
 end
 
 function love.update(dt)
@@ -46,6 +49,7 @@ function love.update(dt)
 
   if love.keyboard.isDown('x') and playerData.canShoot then
     bullets.create(playerData)
+    gunSound:play()
     player.resetShooter()
   end
 
@@ -58,8 +62,8 @@ end
 
 function love.draw()
   bullets.draw()
-  player.draw()
   enemies.draw()
+  player.draw()
 
   if debug then
     local fps = tostring(love.timer.getFPS())
