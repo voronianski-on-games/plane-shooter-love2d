@@ -4,21 +4,17 @@ local player = require('./src/player')
 local bullets = require('./src/bullets')
 local enemies = require('./src/enemies')
 
-local gunSound = nil
 local bgImage = nil
 local bgQuad = nil
 
 function love.load()
-  love.graphics.setBackgroundColor(64, 166, 216)
   bgImage = love.graphics.newImage('assets/sea-tile.png')
   bgImage:setWrap('repeat', 'repeat')
   bgQuad = love.graphics.newQuad(0, 0, 480, 800, bgImage:getWidth(), bgImage:getHeight())
 
-  player.loadImage()
-  bullets.loadImage()
-  enemies.loadImage()
-
-  gunSound = love.audio.newSource('assets/gun-sound.wav', 'static')
+  player.loadAssets()
+  bullets.loadAssets()
+  enemies.loadAssets()
 end
 
 function love.update(dt)
@@ -44,6 +40,7 @@ function love.update(dt)
     bullets.each(function (bullet, bulletIndex)
       if _checkCollision(enemy, bullet) then
         bullets.remove(bulletIndex)
+        enemies.boom()
         enemies.remove(enemyIndex)
         player.score()
       end
@@ -51,14 +48,14 @@ function love.update(dt)
 
     if _checkCollision(enemy, playerData) and playerData.isAlive then
       enemies.remove(enemyIndex)
+      player.boom()
       player.remove()
     end
   end)
 
   if love.keyboard.isDown('x') and playerData.canShoot then
     bullets.create(playerData)
-    gunSound:play()
-    player.resetShooter()
+    player.shoot()
   end
 
   if love.keyboard.isDown('left', 'a') then

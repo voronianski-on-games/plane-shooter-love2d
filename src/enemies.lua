@@ -4,9 +4,11 @@ local createEnemyTimerMax = 0.8
 local createEnemyTimer = createEnemyTimerMax
 local enemyImg = nil
 local enemySpeed = 150
+local enemyBoomSound = nil
 
-function enemies.loadImage ()
+function enemies.loadAssets ()
   enemyImg = love.graphics.newImage('assets/enemy.png')
+  enemyBoomSound = love.audio.newSource('assets/boom2.wav', 'static')
 end
 
 function enemies.createWithTimer (dt)
@@ -46,6 +48,10 @@ function enemies.update (dt)
       enemies.remove(i)
     end
   end)
+end
+
+function enemies.boom ()
+  enemyBoomSound:play()
 end
 
 function enemies.remove (index)

@@ -4,6 +4,8 @@ local canShootTimerMax = 0.2
 local canShootTimer = canShootTimerMax
 local initialX = 200
 local initialY = 710
+local gunSound = nil
+local playerBoomSound = nil
 local playerData = {
   x = initialX,
   y = initialY,
@@ -14,8 +16,10 @@ local playerData = {
   canShoot = true
 }
 
-function player.loadImage ()
+function player.loadAssets ()
   playerData.img = love.graphics.newImage('assets/plane.png')
+  gunSound = love.audio.newSource('assets/gun-sound.wav', 'static')
+  playerBoomSound = love.audio.newSource('assets/boom1.wav', 'static')
 end
 
 function player.data ()
@@ -38,7 +42,8 @@ function player.updateShooter (dt)
   end
 end
 
-function player.resetShooter ()
+function player.shoot ()
+  gunSound:play()
   playerData.canShoot = false
   canShootTimer = canShootTimerMax
 end
@@ -61,6 +66,10 @@ end
 
 function player.score ()
   playerData.score = playerData.score + 1
+end
+
+function player.boom ()
+  playerBoomSound:play()
 end
 
 function player.remove ()
