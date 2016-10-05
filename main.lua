@@ -40,16 +40,14 @@ function love.update(dt)
     bullets.each(function (bullet, bulletIndex)
       if _checkCollision(enemy, bullet) then
         bullets.remove(bulletIndex)
-        enemies.boom()
-        enemies.remove(enemyIndex)
+        enemies.crash(enemyIndex)
         player.score()
       end
     end)
 
     if _checkCollision(enemy, playerData) and playerData.isAlive then
       enemies.remove(enemyIndex)
-      player.boom()
-      player.remove()
+      player.crash()
     end
   end)
 

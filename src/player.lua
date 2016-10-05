@@ -68,8 +68,9 @@ function player.score ()
   playerData.score = playerData.score + 1
 end
 
-function player.boom ()
+function player.crash ()
   playerBoomSound:play()
+  player.remove()
 end
 
 function player.remove ()

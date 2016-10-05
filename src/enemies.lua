@@ -50,8 +50,9 @@ function enemies.update (dt)
   end)
 end
 
-function enemies.boom ()
+function enemies.crash (enemyIndex)
   enemyBoomSound:play()
+  enemies.remove(enemyIndex)
 end
 
 function enemies.remove (index)
