@@ -1,6 +1,8 @@
 # Plane shooter with LÖVE
 
-![](http://famicase.com/16/softs/62.jpg)
+![https://github.com/voronianski-on-games/plane-shooter-love2d/raw/master/demo.gif]
+
+<!-- ![](http://famicase.com/16/softs/62.jpg) -->
 
 ---
 
