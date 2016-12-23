@@ -4,7 +4,9 @@
 
 <!-- ![](http://famicase.com/16/softs/62.jpg) -->
 
-## Download
+## Downloads
+
+- [Mac OS X](https://github.com/voronianski-on-games/plane-shooter-love2d/releases/download/0.1.0/PlaneShooterLove2d_osx.zip)
 
 ## Development
 
